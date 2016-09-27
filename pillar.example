@@ -1,0 +1,11 @@
+elgg:
+  plugins:
+    TidyPics: https://github.com/Tidypics/Tidypics.git
+mysql:
+  server:
+    root_password: 'testpass'
+smtp:
+  server: ssl://smtp-server
+  port: 465
+  username: user@server.com
+  password: testpass
