@@ -4,28 +4,34 @@ Install/Setup SaltStack
 
 Run SaltStack installation
 
-$ sudo add-apt-repository ppa:saltstack/salt
+.. code-block::
 
-$ sudo apt-get update
+  $ sudo add-apt-repository ppa:saltstack/salt
 
-$ apt-get install salt-api salt-cloud salt-master salt-minion salt-ssh salt-syndic
+  $ sudo apt-get update
 
-$ mkdir /srv/salt
+  $ apt-get install salt-api salt-cloud salt-master salt-minion salt-ssh salt-syndic
+  
+  $ mkdir /srv/salt
 
-$ mkdir /srv/pillar
+  $ mkdir /srv/pillar
 
 
 Create /srv/salt/top.sls
 
-base:
-  '*elgg*':
-    - elgg-formula.elgg
+.. code-block:: yaml
+
+  base:
+    '*elgg*':
+      - elgg-formula.elgg
 
 Create /srv/pillar/top.sls
 
-base:
-  '*elgg*':
-    - elgg
+.. code-block:: yaml
+
+  base:
+    '*elgg*':
+      - elgg
 
 
 
