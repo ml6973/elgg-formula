@@ -23,6 +23,12 @@ elgg_packages:
       - php5 
       - php5-mysql
 
+apache2:
+  service.running:
+    - restart: True
+    - watch:
+      - file: /etc/php5/apache2/php.ini
+
 #
 # Enable mod_rewrite for Elgg
 #
@@ -97,6 +103,16 @@ copy web content:
     - defaults:
         mysql_root_password: {{ mysql_root_password }}
 
+#
+# Clone elgg plugins
+#
+{% for plugin_name, plugin_info in grains['CODEBASE'].iteritems() %}
+clone {{ plugin_info['REPO'] }}:
+  git.latest:
+    - target: /var/www/html/sites/eLab-ss/mod/{{ plugin_name }}
+    - name: {{ plugin_info['REPO'] }}
+    - rev: {{ plugin_info['BRANCH'] }}
+{% endfor %}
 
 /etc/apache2/sites-available/000-default.conf:
   file.managed:
@@ -112,15 +128,7 @@ copy web content:
         smtp_username: {{ smtp_username }}
         smtp_password: {{ smtp_password }}
 
-#
-# Clone elgg plugins
-#
-{% for plugin_name, plugin_url in elgg_plugins.iteritems() %}
-{{ plugin_url }}:
-  git.latest:
-    - target: /var/www/html/sites/eLab-ss/mod/{{ plugin_name }}
-{% endfor %}
 
-apache2:
-  service.running:
-    - restart: True
+
+service apache2 restart:
+  cmd.run

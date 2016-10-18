@@ -564,7 +564,7 @@ CREATE TABLE `oci_sites_entity` (
 
 LOCK TABLES `oci_sites_entity` WRITE;
 /*!40000 ALTER TABLE `oci_sites_entity` DISABLE KEYS */;
-INSERT INTO `oci_sites_entity` VALUES (1,'eLab','','http://{{  grains['ip4_interfaces']['eth0'][0] }}/sites/eLab-ss/');
+INSERT INTO `oci_sites_entity` VALUES (1,'eLab','','http://{{  grains['public_ip'] }}/sites/eLab-ss/');
 /*!40000 ALTER TABLE `oci_sites_entity` ENABLE KEYS */;
 UNLOCK TABLES;
 
