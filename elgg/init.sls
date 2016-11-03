@@ -1,3 +1,5 @@
+{% from "elgg-formula/elgg/map.jinja" import elgg with context %}
+
 {% set mysql_root_password = salt['pillar.get']('mysql:server:root_password', salt['grains.get']('server_id')) %}
 {% set smtp_server = salt['pillar.get']('smtp:server', salt['grains.get']('server_id')) %}
 {% set smtp_port = salt['pillar.get']('smtp:port', salt['grains.get']('server_id')) %}
@@ -12,16 +14,7 @@
 elgg_packages:
   pkg:
     - installed
-    - pkgs:
-      - apache2 
-      - git 
-      - vim 
-      - curl 
-      - tmux 
-      - mysql-server
-      - sendmail
-      - php5 
-      - php5-mysql
+    - pkgs: {{ elgg.pkgs }}
 
 apache2:
   service.running:
